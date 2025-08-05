@@ -13,10 +13,6 @@
       
       <div id="gameResult"></div> <!--Display the results-->
 
-      <div class="button-container">
-        <button id="playAgainBtn">Play Again</button> <!--Play again button-->
-      </div>
-
       <script type="text/javascript"> // transition to js coding
 
         // VARIABLES
@@ -28,14 +24,13 @@
         let resultMessagePlayer = '';   // For players relsults
         let resultMessageComputer = ''; // For computers relsults
         let gameResult = '';            // For game results
-        let playAgain = '';             // For playing the game again
+        let playAgain = '';             // For when the player wants to play again
 
         // Game choices - array
         const gameOptions = ['Bear', 'Ninja', 'Hunter'];
 
         // For playing again show the prior game results and ask to play agian
         const gameResultDiv = document.getElementById('gameResult');  
-        const playAgainBtn = document.getElementById('playAgainBtn');
 
         // Prompt for players name
         playerName = prompt('Welcome to Bear Hunter Ninja! Please enter your name to get started:');
@@ -44,22 +39,16 @@
         playerNameMessage = `You have entered: ${playerName}`;
           console.log('The players name is ' + playerName); 
 
-        // Let's play message with players name
-        letsPlayMessage = playerName;
-        
         // If the player cancels the game
         if (!playerName) {
           alert("Game canceled.");
 
         // Show when the player continues play
         } else {
-          alert('Hi ' + letsPlayMessage + ' Let\'s play!!');
-
-        // Playing again starting point
-        playAgain = true;
+          alert('Hi ' + playerName + ' Let\'s play!!');
 
         // Loop for playing the game multiple times
-        while (playAgain) {
+        while (true) {
 
           // Make computer choice random
           const randomComIndex  = Math.floor(Math.random() * gameOptions.length);
@@ -73,7 +62,7 @@
           }  
 
           // Display in the console the computer's choice
-          console.log('Computer picked: ' + computerChoice);
+          // console.log('The computer picked: ' + computerChoice);
 
           // Ask player who they want to be
           playerChoice = prompt('Who are you: Bear, Ninja or Hunter?');
@@ -89,10 +78,12 @@
           playerChoice = playerChoice.toLowerCase();
 
           // Prep player's results
-          resultMessagePlayer = `${playerName}, you picked ${playerChoice}. `;
+          let resultMessagePlayer = playerName + ', you choose ' + playerChoice + '!';
+              console.log(resultMessagePlayer); 
 
           // Prep computer's results
-          resultMessageComputer = `The computer picked ${computerChoice}. `;
+          let resultMessageComputer = 'The computer choose ' + computerChoice + '!';
+              console.log(resultMessageComputer); 
 
           // Validate Player's input
           if (
@@ -134,26 +125,22 @@
           }
 
           //Results in console
-          console.log(resultMessagePlayer + resultMessageComputer + gameResult); 
+          console.log(gameResult); 
 
           // Results in HTML
           document.getElementById('gameResult').innerHTML += resultMessagePlayer + '<br>' + resultMessageComputer + '<br>' + gameResult;
 
-          // Show the Play Again button and stop the loop
-          playAgain = false;
-          playAgainBtn.style.display = 'block';
+          // Ask if the player wants to play again
+          let playAgain = prompt(playerName + ', would you like to play again, (Yes or No)').toLowerCase();
+
+          //if the player says yes to playing agian it tell them to press F5 if a no is entered the loop is exited and play stops.
+          if (playAgain !== 'yes') {
+            alert('Please press F5 to play again');
+            break;  
+          } else {
+          }
 	      }
-
-        // Clicking the Play Again button just reloads the page (no function)
-        playAgainBtn.addEventListener('click', function () {
-          location.reload();
-        });
-
-        // Closing the game out this a thank you and good game.
-        alert('Good game, ' + playerName + '!');
-
-        }
-
+      }
       </script>
     </div>
   </body>
